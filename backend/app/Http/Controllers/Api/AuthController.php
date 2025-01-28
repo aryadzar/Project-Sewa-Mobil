@@ -73,7 +73,7 @@ class AuthController extends Controller
         $user = User::where('email', $credentials['email'])->first();
 
         if (!$user || !Hash::check($credentials['password'], $user->password)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+            return response()->json(['message' => 'Username atau Passowrd salah'], 401);
         }
 
         // Check if the user is an admin
@@ -100,7 +100,7 @@ class AuthController extends Controller
         $request->user()->currentAccessToken()->update([
             'expires_at' => now(), // Tandai token expired
         ]);
-        
+
         return response()->json([
             'message' => 'Logged out successfully',
         ]);

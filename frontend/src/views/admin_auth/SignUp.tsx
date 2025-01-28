@@ -77,7 +77,7 @@ export default function SignUp() {
                     <div className="mt-6 text-blue-500 text-center">
                         Have an account ? 
 
-                        <Link to='/auth/login' className="hover:underline ml-2">
+                        <Link to='/admin/auth/login' className="hover:underline ml-2">
                               Login Here
                         </Link>
                     </div>

@@ -1,30 +1,57 @@
 import { Link } from "react-router-dom";
-import api from "../utils/api";
+import api from "../../utils/api";
 import { useRef, useState } from "react";
+import { useAdminAuth } from "../../context/AdminProvider";
+import toast from "react-hot-toast";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const loginValidationSchema = yup.object().shape({
+    email : yup.string().email("Gunakan Format Email Yang Benar").required("Email Harus Diisi"),
+    password : yup.string().required("Password harus diisi")
+})
 
 export default function Login() {
-  const emailRef = useRef<HTMLInputElement >(null)
-  const passwordRef = useRef<HTMLInputElement>(null)
-  const [loading, setLoading] = useState<boolean>(false);
+    const emailRef = useRef<HTMLInputElement >(null)
+    const passwordRef = useRef<HTMLInputElement>(null)
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
+    const {setToken, setUser} = useAdminAuth()
 
-  const onSubmit = (e : React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    const payload = {
-      'email' : emailRef.current?.value,
-      'password' : passwordRef.current?.value
-    }
-
-    // console.log(payload);
-
-    api.post('/admin/login', payload)
-    .then(({data})=> {
-      setLoading(false);
-      console.log(data);
-    }).catch(err => {
-      console.error(err);
+    const {register, handleSubmit, formState: {errors}} = useForm({
+        resolver: yupResolver(loginValidationSchema)
     })
-  }
+
+    const onSubmit = (e : React.FormEvent<HTMLFormElement>) => {
+
+        e.preventDefault();
+        setLoading(true);
+        const payload = {
+            'email' : emailRef.current?.value,
+            'password' : passwordRef.current?.value
+        }
+
+
+        api.post('/admin/login', payload)
+        .then(({data})=> {
+            setLoading(false);
+            setToken(data.token)
+            setUser(data.user)
+            toast.success('Login Berhasil')
+            console.log(data);
+        }).catch(err => {
+            // console.log(err);
+            setLoading(false);
+            const {response} = err
+
+            if(response.status === 401){
+                setError(response.data.message)
+                toast.error(response.data.message);
+            }
+            
+        })
+    }
 
 
   return (
@@ -40,7 +67,10 @@ export default function Login() {
               </div>
               {/* Right: Login Form */}
               <div className="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
-                    <h1 className="text-2xl font-semibold mb-4">Login</h1>
+                    <h1 className="text-2xl font-semibold mb-4">Login Admin</h1>
+                    {error && <div className="flex p-4 mb-4 text-sm font-bold mt-5 text-red-800 rounded-lg bg-red-50">
+                        {error}    
+                    </div>}
                     <form onSubmit={onSubmit}>
                         {/* Username Input */}
                         <div className="mb-4">
@@ -100,7 +130,7 @@ export default function Login() {
                     {/* Sign up  Link */}
                     <div className="mt-6 text-blue-500 text-center">
                       Don't have an Account ? 
-                        <Link to='/auth/signup' className="hover:underline ml-2">
+                        <Link to='/admin/auth/signup' className="hover:underline ml-2">
                               Sign up Here
                         </Link>
                     </div>
