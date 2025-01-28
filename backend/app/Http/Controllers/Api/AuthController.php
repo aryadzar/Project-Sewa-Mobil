@@ -94,6 +94,21 @@ class AuthController extends Controller
         ]);
     }
 
+    public function cek_token(Request $request){
+        if ($request->user()) {
+            return response()->json([
+                'valid' => true,
+                'message' => 'Token is valid',
+                'user' => $request->user(), // Detail user
+            ]);
+        }
+
+        return response()->json([
+            'valid' => false,
+            'message' => 'Invalid token or unauthorized',
+        ], 401);
+    }
+
     public function logout(Request $request)
     {
         // Hapus token yang sedang digunakan

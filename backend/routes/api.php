@@ -24,6 +24,7 @@ Route::middleware(['auth:sanctum', 'auth.token_not_expired'])->group(function ()
     Route::post('/customer/logout', [AuthController::class, 'logout'])->middleware('role:customer');
     Route::post('/admin/logout', [AuthController::class, 'logout'])->middleware('role:admin');
 
+    Route::post('/auth/cek_token', [AuthController::class, 'cek_token']);
 });
 
 Route::prefix('customer')->group(function(){

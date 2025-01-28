@@ -1,9 +1,9 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import AuthLayout from "./layout/admin/AdminAuthLayout";
 import Login from "./views/admin_auth/Login";
-import SignUp from "./views/admin_auth/SignUp";
 import AdminDashboardLayout from "./layout/admin/AdminDashboardLayout";
 import AdminDashboard from "./views/admin/AdminDashboard";
+
 
 const router = createBrowserRouter([
     {
@@ -12,7 +12,8 @@ const router = createBrowserRouter([
         children : [
             {
                 path: 'dashboard',
-                element: <AdminDashboard/>
+                element: <AdminDashboard/>,
+                // name: ''
             }
         ]
     }
@@ -29,12 +30,7 @@ const router = createBrowserRouter([
             {
                 path: 'login',
                 element: <Login/>
-            },
-            {
-                path: 'signup',
-                element: <SignUp/>
-            },
-
+            }
         ]
     }
 ])

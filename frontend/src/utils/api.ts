@@ -6,10 +6,21 @@ const api = axios.create({
 
 api.interceptors.request.use(function (config) {
     // Do something before request is sent
-    const token = localStorage.getItem('ACCESS_TOKEN')
+    const token_admin = localStorage.getItem('ADMIN_TOKEN')
+    const token_customer = localStorage.getItem('CUSTOMER_TOKEN')
 
-    if(token){
-      config.headers.Authorization = `Bearer ${token}`
+    // Gunakan token admin untuk route admin
+    if (config.url?.startsWith("/admin")) {
+      if (token_admin) {
+        config.headers.Authorization = `Bearer ${token_admin}`;
+      }
+    }
+
+    // Gunakan token customer untuk route customer
+    if (config.url?.startsWith("/customer")) {
+      if (token_customer) {
+        config.headers.Authorization = `Bearer ${token_customer}`;
+      }
     }
     
     return config;

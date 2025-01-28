@@ -129,10 +129,10 @@ export default function Login() {
                     </form>
                     {/* Sign up  Link */}
                     <div className="mt-6 text-blue-500 text-center">
-                      Don't have an Account ? 
+                      {/* Don't have an Account ? 
                         <Link to='/admin/auth/signup' className="hover:underline ml-2">
                               Sign up Here
-                        </Link>
+                        </Link> */}
                     </div>
               </div>
           </div>

@@ -10,9 +10,9 @@ export const CustomerAuthProvider: React.FC<{ children: React.ReactNode }> = ({ 
     const setToken = (token  : string) => {
         _setToken(token);
         if(token){
-            localStorage.setItem('ACCESS_TOKEN', token);
+            localStorage.setItem('CUSTOMER_TOKEN', token);
         }else{
-            localStorage.removeItem('ACCESS_TOKEN');
+            localStorage.removeItem('CUSTOMER_TOKEN');
         }
     }
 
@@ -29,4 +29,10 @@ export const CustomerAuthProvider: React.FC<{ children: React.ReactNode }> = ({ 
     );
 };
 
-export const useCustomerAuth = () => useContext(CustomerAuthContext)
+export const useCustomerAuth = () => {
+    const context = useContext(CustomerAuthContext);
+    if (!context) {
+      throw new Error("useCustomerAuth must be used within CustomerAuthProvider");
+    }
+    return context;
+  };
