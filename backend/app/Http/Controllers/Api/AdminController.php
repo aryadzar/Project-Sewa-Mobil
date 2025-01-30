@@ -28,12 +28,34 @@ class AdminController extends Controller
         ]);
     }
 
-    public function tambah_user(Request $request){
-        $request->validate([
+        public function tambah_user(Request $request){
+        $data = $request->validate([
             'email' => 'required|email|unique:users,email',
-            'name' => 'required|string'
+            'name' => 'required|string',
+            'address' => "required"
+        ], [
+            "email.unique" => "Email telah Digunakan"
+        ]);
+
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'address' => $data['address'],
+            'password' => bcrypt('password')
+        ]);
+
+        $user->save();
+
+        return response()->json([
+            "data" => $user
         ]);
 
         // $data =
+    }
+
+    public function get_detail_user(User $user){
+        return response()->json([
+            "data" => $user
+        ]);
     }
 }

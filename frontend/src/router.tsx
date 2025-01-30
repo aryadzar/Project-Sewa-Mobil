@@ -3,8 +3,9 @@ import AuthLayout from './layout/admin/AdminAuthLayout';
 import Login from './views/admin_auth/Login';
 import AdminDashboardLayout from './layout/admin/AdminDashboardLayout';
 import AdminDashboard from './views/admin/AdminDashboard';
-import AdminUsers from './views/admin/AdminUsers';
+import AdminUsers from './views/admin/users/AdminUsers';
 import NotFoundPage from './views/404/NotFound';
+import AdminUserForm from './views/admin/user_form/AdminUserForm';
 
 const router = createBrowserRouter([
    {
@@ -23,6 +24,14 @@ const router = createBrowserRouter([
          {
             path: 'users',
             element: <AdminUsers />,
+         },
+         {
+            path: 'users/new',
+            element: <AdminUserForm key="add_new" />,
+         },
+         {
+            path: 'users/:id',
+            element: <AdminUserForm key="edit_user" />,
          },
       ],
    },

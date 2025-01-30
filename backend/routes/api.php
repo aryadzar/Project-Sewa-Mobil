@@ -27,10 +27,10 @@ Route::middleware(['auth:sanctum', 'auth.token_not_expired'])->group(function ()
     Route::prefix('admin')->middleware('role:admin')->group(function(){
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::post('/login', [AuthController::class, 'adminLogin']);
-        
+
         Route::get('/users', [AdminController::class, 'get_users']);
         Route::post('/users', [AdminController::class, 'tambah_user']);
-        Route::get('/user/{id}', [AdminController::class, 'get_detail_user']);
+        Route::get('/user/{user}', [AdminController::class, 'get_detail_user']);
         Route::put('/user/{id}', [AdminController::class, 'update_users']);
     });
     Route::post('/auth/cek_token', [AuthController::class, 'cek_token']);

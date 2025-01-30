@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import api from '../../utils/api';
+import api from '../../../utils/api';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import DataTable from 'react-data-table-component';
-import { User } from '../../types/UserTypes';
-import Badge from '../../components/Badge';
-import readableDate from '../../helper/dateHumans';
+import { User } from '../../../types/UserTypes';
+import Badge from '../../../components/Badge';
+import readableDate from '../../../helper/dateHumans';
 import { debounce } from 'lodash'; // Gunakan lodash untuk debounce
 import { Pencil, Trash2 } from 'lucide-react';
 
@@ -86,11 +86,14 @@ export default function AdminUsers() {
          name: 'Actions',
          cell: (row: User) => (
             <>
-               <Link to={`/users/${row.id}`} className="btn-edit">
+               <Link
+                  to={`/admin/users/${row.id}`}
+                  className="mb-2 me-2 rounded-lg bg-yellow-400 px-2.5 py-2.5 text-sm font-medium text-white hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300"
+               >
                   <Pencil size={16} strokeWidth={1.5} />
                </Link>
                &nbsp;
-               <button className="btn-delete">
+               <button className="mb-2 me-2 rounded-lg bg-red-700 px-2.5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300">
                   <Trash2 size={16} strokeWidth={1.5} />
                </button>
             </>
