@@ -10,8 +10,17 @@ class AdminController extends Controller
 {
     public function get_users(Request $request){
         $get_paginate = $request->get('pageSize',10);
-
-        $users = User::orderBy('created_at', 'desc' )->paginate($get_paginate);
+        $query = $request->get('q');
+        $users = User::query()
+        ->when($query, function ($get) use ($query) {
+            $get->where(function ($q) use ($query) {
+                $q->where('name', 'like', "%{$query}%")
+                  ->orWhere('email', 'like', "%{$query}%")
+                  ->orWhere('address', 'like', "%{$query}%");
+            });
+        })
+        ->orderBy('created_at', 'desc' )
+        ->paginate($get_paginate);
 
         return response()->json([
            "data" =>  $users->items(),
