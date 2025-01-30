@@ -8,6 +8,26 @@ use App\Http\Controllers\Controller;
 use App\Models\SetRole;
 use Illuminate\Support\Facades\Hash;
 
+    /**
+    * @OA\Info(
+    *      version="1.0.0",
+    *      title="Dokumentasi API",
+    *      description="Lorem Ipsum",
+    *      @OA\Contact(
+    *          email="hi.wasissubekti02@gmail.com"
+    *      ),
+    *      @OA\License(
+    *          name="Apache 2.0",
+    *          url="http://www.apache.org/licenses/LICENSE-2.0.html"
+    *      )
+    * )
+    *
+    * @OA\Server(
+    *      url=L5_SWAGGER_CONST_HOST,
+    *      description="Demo API Server"
+    * )
+    */
+
 class AuthController extends Controller
 {
     public function customerLogin(Request $request)
@@ -63,6 +83,41 @@ class AuthController extends Controller
             'user' => $new_user
         ]);
     }
+        /**
+    *    @OA\Post(
+    *       path="/admin/login",
+    *       tags={"Akses Admin"},
+    *       operationId="Login Admin",
+    *       summary="Login Admin",
+    *       description="Authentikasi Admin",
+    *     @OA\Parameter(
+     *          email="sdds@dsads.com",
+     *          password="1234567",
+     *          required=true,
+     *          in="query",
+     *          @OA\Schema(
+     *              type="string"
+     *          )
+     *     ),
+    *       @OA\Response(
+    *           response="200",
+    *           description="Ok",
+    *           @OA\JsonContent
+    *           (example={
+    *               "success": true,
+    *               "message": "Berhasil Login Admin",
+    *               "token": "fdsfdsffhdrfgertgfg",
+    *               "user": {
+    *                   {
+    *                   "id": "1",
+    *                   "name": "Pendidikan",
+    *                   "address": "Bandar lampung",
+    *                  }
+    *              }
+    *          }),
+    *      ),
+    *  )
+    */
     public function adminLogin(Request $request)
     {
         $credentials = $request->validate([

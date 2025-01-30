@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Sanctum\NewAccessToken;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -68,5 +69,33 @@ class User extends Authenticatable
 
     public function user_role(){
         return $this->hasMany(SetRole::class, 'id_user');
+    }
+
+    public function actor_set_role(){
+        return $this->hasMany(SetRole::class, 'id_actor');
+    }
+    public function actor_mobil(){
+        return $this->hasMany(Mobil::class, 'id_actor');
+    }
+    public function actor_category(){
+        return $this->hasMany(Category::class, 'id_actor');
+    }
+    public function actor_merk(){
+        return $this->hasMany(MerkMobil::class, 'id_actor');
+    }
+
+    public function bookings(){
+        return $this->hasMany(Booking::class, 'id_user');
+    }
+
+    public function createToken(string $name, array $abilities = ['*'])
+    {
+        $token = $this->tokens()->create([
+            'name' => $name,
+            'token' => hash('sha256', $plainTextToken = Str::random(240)),
+            'abilities' => $abilities,
+        ]);
+
+        return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
     }
 }

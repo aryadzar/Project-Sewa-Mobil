@@ -6,15 +6,14 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class SetRole extends Model
+class Mobil extends Model
 {
     use HasFactory;
-
-    public $table = 'user_roles';
+    public $table = 'mobil';
     public $incrementing = false;
 
     // Set primary key type ke string
-    protected $keyType = 'string';
+        protected $keyType = 'string';
     protected $guarded = ['id'];
     // Override boot function untuk men-generate UUID secara otomatis
     protected static function boot()
@@ -28,15 +27,15 @@ class SetRole extends Model
         });
     }
 
-    public function role(){
-        return $this->belongsTo(Role::class, 'id_role');
-    }
-
-    public function user(){
-        return $this->belongsTo(User::class, 'id_user');
-    }
-
     public function actor(){
         return $this->belongsTo(User::class, 'id_actor');
+    }
+
+    public function merk_mobil(){
+        return $this->belongsTo(MerkMobil::class, 'id_brand');
+    }
+
+    public function category(){
+        return $this->belongsTo(Category::class, 'id_kategori');
     }
 }

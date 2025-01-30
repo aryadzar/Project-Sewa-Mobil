@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('mobil', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->foreignUuid('id_kategori')->constrained('mobil_kategori', 'id');
+            $table->foreignUuid('id_brand')->constrained('merk_mobil', 'id');
+            $table->string('nama_mobil');
+            $table->string('tipe_mobil');
+            $table->integer('harga_per_hari')->nullable();
+            $table->boolean('ketersediaan')->nullable();
+            $table->string('foto_mobil')->nullable();
+            $table->foreignUuid('id_actor')->constrained('users', 'id');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('mobil');
+    }
+};

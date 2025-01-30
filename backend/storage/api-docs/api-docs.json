@@ -1,0 +1,61 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Dokumentasi API",
+        "description": "Lorem Ipsum",
+        "contact": {
+            "email": "hi.wasissubekti02@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "Demo API Server"
+        }
+    ],
+    "paths": {
+        "/admin/login": {
+            "post": {
+                "tags": [
+                    "Akses Admin"
+                ],
+                "summary": "Login Admin",
+                "description": "Authentikasi Admin",
+                "operationId": "Login Admin",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "success": true,
+                                    "message": "Berhasil Login Admin",
+                                    "token": "fdsfdsffhdrfgertgfg",
+                                    "user": [
+                                        {
+                                            "id": "1",
+                                            "name": "Pendidikan",
+                                            "address": "Bandar lampung"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Akses Admin",
+            "description": "Akses Admin"
+        }
+    ]
+}

@@ -3,6 +3,8 @@ import AuthLayout from "./layout/admin/AdminAuthLayout";
 import Login from "./views/admin_auth/Login";
 import AdminDashboardLayout from "./layout/admin/AdminDashboardLayout";
 import AdminDashboard from "./views/admin/AdminDashboard";
+import AdminUsers from "./views/admin/AdminUsers";
+import NotFoundPage from "./views/404/NotFound";
 
 
 const router = createBrowserRouter([
@@ -11,9 +13,18 @@ const router = createBrowserRouter([
         element: <AdminDashboardLayout/>,
         children : [
             {
+                path: '',
+                element: <Navigate to="dashboard" />    
+            }
+            ,
+            {
                 path: 'dashboard',
                 element: <AdminDashboard/>,
                 // name: ''
+            },
+            {
+                path: 'users',
+                element: <AdminUsers/>
             }
         ]
     }
@@ -32,6 +43,10 @@ const router = createBrowserRouter([
                 element: <Login/>
             }
         ]
+    },
+    {
+        path: '*',
+        element: <NotFoundPage/>
     }
 ])
 

@@ -6,11 +6,11 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class SetRole extends Model
+class Category extends Model
 {
-    use HasFactory;
 
-    public $table = 'user_roles';
+    use HasFactory;
+    public $table = 'mobil_kategori';
     public $incrementing = false;
 
     // Set primary key type ke string
@@ -28,12 +28,8 @@ class SetRole extends Model
         });
     }
 
-    public function role(){
-        return $this->belongsTo(Role::class, 'id_role');
-    }
-
-    public function user(){
-        return $this->belongsTo(User::class, 'id_user');
+    public function categories(){
+        return $this->hasMany(Mobil::class, 'id_kategori');
     }
 
     public function actor(){
